@@ -23,6 +23,9 @@ import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 import { LoginComponent } from './login/login.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,8 @@ import { RegistrationComponent } from './registration/registration.component';
     NavigationComponent,
     LoginComponent,
     RegistrationComponent,
-    AuthDialogComponent
+    AuthDialogComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,9 @@ import { RegistrationComponent } from './registration/registration.component';
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatGridListModule,
+    MatMenuModule
   ],
   bootstrap: [AppComponent]
 })

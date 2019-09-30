@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -18,27 +18,33 @@ export class AppComponent {
   constructor(
     private angularFireAuth: AngularFireAuth,
     public dialog: MatDialog,
+    private ngZone: NgZone,
     private router: Router
   ) {
     this.angularFireAuth.auth.onAuthStateChanged((user: User) => {
       if (user) {
         this.showDialog = false;
         this.user = user;
+        this.ngZone.run(() => {
+          this.router.navigate(['dashboard']);
+        });
       } else {
-        this.router.navigate(['']).then(() => {
-          if (this.showDialog) {
-            const dialogRef = this.dialog.open(AuthDialogComponent, {
-              width: '350px'
-            });
-
-            dialogRef
-              .afterClosed()
-              .pipe(take(1))
-              .subscribe((authAction: 'login' | 'register') => {
-                this.showDialog = false;
-                this.router.navigate([authAction]);
+        this.ngZone.run(() => {
+          this.router.navigate(['']).then(() => {
+            if (this.showDialog) {
+              const dialogRef = this.dialog.open(AuthDialogComponent, {
+                width: '350px'
               });
-          }
+
+              dialogRef
+                .afterClosed()
+                .pipe(take(1))
+                .subscribe((authAction: 'login' | 'register') => {
+                  this.showDialog = false;
+                  this.router.navigate([authAction]);
+                });
+            }
+          });
         });
       }
     });
