@@ -8,8 +8,15 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class RegistrationComponent {
   registrationForm = this.fb.group({
-    email: [null, Validators.required],
-    password: [null, Validators.required]
+    email: ['', Validators.required, Validators.email],
+    password: [
+      '',
+      Validators.required,
+      Validators.minLength(8),
+      Validators.pattern('[a-z]'),
+      Validators.pattern('[A-Z]'),
+      Validators.pattern('[0-9]')
+    ]
   });
 
   constructor(private fb: FormBuilder) {}
