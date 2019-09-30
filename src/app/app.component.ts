@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 
 @Component({
@@ -18,6 +19,7 @@ export class AppComponent {
   ) {
     this.angularFireAuth.auth.onAuthStateChanged((user: any) => {
       if (user) {
+        this.showDialog = false;
         const displayName = user.displayName;
         const email = user.email;
         const emailVerified = user.emailVerified;
@@ -33,18 +35,21 @@ export class AppComponent {
         console.log('uid:::', uid);
         console.log('providerData:::', providerData);
       } else {
-        if (this.showDialog) {
-          const dialogRef = this.dialog.open(AuthDialogComponent, {
-            width: '350px'
-          });
-
-          dialogRef
-            .afterClosed()
-            .subscribe((authAction: 'login' | 'register') => {
-              this.showDialog = false;
-              this.router.navigate([authAction]);
+        this.router.navigate(['']).then(() => {
+          if (this.showDialog) {
+            const dialogRef = this.dialog.open(AuthDialogComponent, {
+              width: '350px'
             });
-        }
+
+            dialogRef
+              .afterClosed()
+              .pipe(take(1))
+              .subscribe((authAction: 'login' | 'register') => {
+                this.showDialog = false;
+                this.router.navigate([authAction]);
+              });
+          }
+        });
       }
     });
   }
