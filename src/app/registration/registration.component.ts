@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, Validators } from '@angular/forms';
+import {
+  validateLowerCase,
+  validateNumbers,
+  validateUpperCase
+} from '../validators';
 
 @Component({
   selector: 'crf-registration',
@@ -8,20 +14,25 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class RegistrationComponent {
   registrationForm = this.fb.group({
-    email: ['', Validators.required, Validators.email],
+    email: ['', Validators.compose([Validators.required, Validators.email])],
     password: [
       '',
-      Validators.required,
-      Validators.minLength(8),
-      Validators.pattern('[a-z]'),
-      Validators.pattern('[A-Z]'),
-      Validators.pattern('[0-9]')
+      Validators.compose([
+        Validators.required,
+        Validators.minLength(8),
+        validateLowerCase(),
+        validateUpperCase(),
+        validateNumbers()
+      ])
     ]
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private angularFireAuth: AngularFireAuth,
+    private fb: FormBuilder
+  ) {}
 
   onSubmit() {
-    alert('Thanks!');
+    console.log('this.registrationForm:::', this.registrationForm);
   }
 }

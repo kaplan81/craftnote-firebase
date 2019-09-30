@@ -18,6 +18,7 @@ export class AppComponent {
     private router: Router
   ) {
     this.angularFireAuth.auth.onAuthStateChanged((user: any) => {
+      console.log('onAuthStateChanged:::');
       if (user) {
         this.showDialog = false;
         const displayName = user.displayName;
