@@ -33,6 +33,9 @@ export class RegistrationComponent {
   ) {}
 
   onSubmit() {
-    console.log('this.registrationForm:::', this.registrationForm);
+    this.angularFireAuth.auth.createUserWithEmailAndPassword(
+      this.registrationForm.value.email,
+      this.registrationForm.value.password
+    );
   }
 }

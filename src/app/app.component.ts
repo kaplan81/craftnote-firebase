@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
+import { User } from './user.model';
 
 @Component({
   selector: 'crf-root',
@@ -12,29 +13,17 @@ import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 })
 export class AppComponent {
   showDialog = true;
+  user: User;
+
   constructor(
     private angularFireAuth: AngularFireAuth,
     public dialog: MatDialog,
     private router: Router
   ) {
-    this.angularFireAuth.auth.onAuthStateChanged((user: any) => {
-      console.log('onAuthStateChanged:::');
+    this.angularFireAuth.auth.onAuthStateChanged((user: User) => {
       if (user) {
         this.showDialog = false;
-        const displayName = user.displayName;
-        const email = user.email;
-        const emailVerified = user.emailVerified;
-        const photoURL = user.photoURL;
-        const isAnonymous = user.isAnonymous;
-        const uid = user.uid;
-        const providerData = user.providerData;
-        console.log('displayName:::', displayName);
-        console.log('email:::', email);
-        console.log('emailVerified:::', emailVerified);
-        console.log('photoURL:::', photoURL);
-        console.log('isAnonymous:::', isAnonymous);
-        console.log('uid:::', uid);
-        console.log('providerData:::', providerData);
+        this.user = user;
       } else {
         this.router.navigate(['']).then(() => {
           if (this.showDialog) {
