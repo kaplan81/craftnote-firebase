@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 
 @Component({
   selector: 'crf-root',
@@ -7,7 +10,12 @@ import { AngularFireAuth } from '@angular/fire/auth';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private angularFireAuth: AngularFireAuth) {
+  showDialog = true;
+  constructor(
+    private angularFireAuth: AngularFireAuth,
+    public dialog: MatDialog,
+    private router: Router
+  ) {
     this.angularFireAuth.auth.onAuthStateChanged((user: any) => {
       if (user) {
         const displayName = user.displayName;
@@ -25,8 +33,18 @@ export class AppComponent {
         console.log('uid:::', uid);
         console.log('providerData:::', providerData);
       } else {
-        // Navigate to registration.
-        console.log('We are not authenticated');
+        if (this.showDialog) {
+          const dialogRef = this.dialog.open(AuthDialogComponent, {
+            width: '350px'
+          });
+
+          dialogRef
+            .afterClosed()
+            .subscribe((authAction: 'login' | 'register') => {
+              this.showDialog = false;
+              this.router.navigate([authAction]);
+            });
+        }
       }
     });
   }

@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Dear user</h2>
+<div mat-dialog-content>
+  <p>You are not authenticated yet.</p>
+  <p>What would youl like to do?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="closeDialog('login')">Login</button>
+  <button mat-button (click)="closeDialog('register')">Register</button>
+</div>
