@@ -28,7 +28,9 @@ export class AppComponent {
         this.loggedIn = true;
         this.user = user;
         this.ngZone.run(() => {
-          this.router.navigate(['features']);
+          if (this.router.url === '/login' || this.router.url === '/register') {
+            this.router.navigate(['features']);
+          }
         });
       } else {
         this.ngZone.run(() => {
