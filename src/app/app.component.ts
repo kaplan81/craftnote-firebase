@@ -40,7 +40,6 @@ export class AppComponent {
                 .afterClosed()
                 .pipe(take(1))
                 .subscribe((authAction: 'login' | 'register') => {
-                  this.loggedIn = true;
                   this.router.navigate([authAction]);
                 });
             }

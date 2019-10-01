@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, Validators } from '@angular/forms';
 import {
   validateLowerCase,
@@ -26,9 +27,15 @@ export class LoginComponent {
     ]
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private angularFireAuth: AngularFireAuth,
+    private fb: FormBuilder
+  ) {}
 
   onSubmit() {
-    alert('Thanks!');
+    this.angularFireAuth.auth.signInWithEmailAndPassword(
+      this.loginForm.value.email,
+      this.loginForm.value.password
+    );
   }
 }
