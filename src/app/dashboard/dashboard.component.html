@@ -10,3 +10,57 @@
     </ng-container>
   </mat-card-content>
 </mat-card>
+
+<br /><br />
+
+<form [formGroup]="featureForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Add a new feature to the collection!</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Feature Name" formControlName="name" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input
+              type="number"
+              matInput
+              placeholder="Importance"
+              formControlName="importance"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input
+              type="number"
+              matInput
+              placeholder="Quantity"
+              formControlName="quantity"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button
+        class="add-feature"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!featureForm.valid"
+      >
+        Add
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>
