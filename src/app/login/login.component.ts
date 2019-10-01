@@ -33,9 +33,11 @@ export class LoginComponent {
   ) {}
 
   onSubmit() {
-    this.angularFireAuth.auth.signInWithEmailAndPassword(
-      this.loginForm.value.email,
-      this.loginForm.value.password
-    );
+    this.angularFireAuth.auth
+      .signInWithEmailAndPassword(
+        this.loginForm.value.email,
+        this.loginForm.value.password
+      )
+      .catch(error => alert(error.message));
   }
 }

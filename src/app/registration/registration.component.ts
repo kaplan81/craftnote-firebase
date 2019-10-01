@@ -33,9 +33,11 @@ export class RegistrationComponent {
   ) {}
 
   onSubmit() {
-    this.angularFireAuth.auth.createUserWithEmailAndPassword(
-      this.registrationForm.value.email,
-      this.registrationForm.value.password
-    );
+    this.angularFireAuth.auth
+      .createUserWithEmailAndPassword(
+        this.registrationForm.value.email,
+        this.registrationForm.value.password
+      )
+      .catch(error => alert(error.message));
   }
 }
