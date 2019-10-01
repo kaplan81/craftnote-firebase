@@ -22,6 +22,8 @@ export class AppComponent {
     private router: Router
   ) {
     this.angularFireAuth.auth.onAuthStateChanged((user: User) => {
+      console.log('Authentication State Changed!:::');
+
       if (user) {
         this.loggedIn = true;
         this.user = user;
@@ -33,7 +35,7 @@ export class AppComponent {
           this.router.navigate(['']).then(() => {
             if (!this.loggedIn) {
               const dialogRef = this.dialog.open(AuthDialogComponent, {
-                width: '350px'
+                width: '400px'
               });
 
               dialogRef
@@ -47,5 +49,9 @@ export class AppComponent {
         });
       }
     });
+  }
+
+  onLoggedOut(): void {
+    this.loggedIn = false;
   }
 }

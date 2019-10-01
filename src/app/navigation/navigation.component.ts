@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
@@ -6,16 +6,15 @@ import { AngularFireAuth } from '@angular/fire/auth';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss']
 })
-export class NavigationComponent implements OnChanges {
+export class NavigationComponent {
   @Input() loggedIn: boolean;
+  @Output() loggedOut = new EventEmitter<void>();
 
   constructor(private angularFireAuth: AngularFireAuth) {}
 
-  ngOnChanges(): void {
-    console.log('this.loggedIn:::', this.loggedIn);
-  }
-
   logout(): void {
-    this.angularFireAuth.auth.signOut();
+    this.angularFireAuth.auth.signOut().then(() => {
+      this.loggedOut.emit();
+    });
   }
 }
