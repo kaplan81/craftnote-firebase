@@ -12,7 +12,7 @@ import { User } from './user.model';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  showDialog = true;
+  loggedIn = false;
   user: User;
 
   constructor(
@@ -23,7 +23,7 @@ export class AppComponent {
   ) {
     this.angularFireAuth.auth.onAuthStateChanged((user: User) => {
       if (user) {
-        this.showDialog = false;
+        this.loggedIn = true;
         this.user = user;
         this.ngZone.run(() => {
           this.router.navigate(['dashboard']);
@@ -31,7 +31,7 @@ export class AppComponent {
       } else {
         this.ngZone.run(() => {
           this.router.navigate(['']).then(() => {
-            if (this.showDialog) {
+            if (!this.loggedIn) {
               const dialogRef = this.dialog.open(AuthDialogComponent, {
                 width: '350px'
               });
@@ -40,7 +40,7 @@ export class AppComponent {
                 .afterClosed()
                 .pipe(take(1))
                 .subscribe((authAction: 'login' | 'register') => {
-                  this.showDialog = false;
+                  this.loggedIn = true;
                   this.router.navigate([authAction]);
                 });
             }
