@@ -27,6 +27,10 @@ import { FeaturesComponent } from './features/features.component';
 import { LoginComponent } from './login/login.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -35,7 +39,8 @@ import { RegistrationComponent } from './registration/registration.component';
     LoginComponent,
     RegistrationComponent,
     AuthDialogComponent,
-    FeaturesComponent
+    FeaturesComponent,
+    FeedbackComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +63,10 @@ import { RegistrationComponent } from './registration/registration.component';
     MatCardModule,
     ReactiveFormsModule,
     MatGridListModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   bootstrap: [AppComponent]
 })

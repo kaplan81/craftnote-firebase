@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FeaturesComponent } from './features/features.component';
+import { FeedbackComponent } from './feedback/feedback.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'features',
     component: FeaturesComponent
+  },
+  {
+    path: 'feedback',
+    component: FeedbackComponent
   },
   {
     path: '**',
