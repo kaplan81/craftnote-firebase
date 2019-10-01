@@ -1,3 +1,15 @@
-.full-width-table {
+table {
+  table-layout: fixed;
   width: 100%;
+  td {
+    overflow: hidden;
+  }
+  td,
+  th {
+    padding: 15px;
+  }
+  .mat-column-description {
+    border-left: 1px solid rgba(0, 0, 0, 0.12);
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
+  }
 }

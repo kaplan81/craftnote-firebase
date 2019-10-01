@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -10,7 +10,7 @@ import { Feature } from '../feature.model';
   templateUrl: './features.component.html',
   styleUrls: ['./features.component.scss']
 })
-export class FeaturesComponent {
+export class FeaturesComponent implements OnInit {
   features$: Observable<Feature[]>;
   featureForm = this.fb.group({
     name: ['', Validators.required],
@@ -21,7 +21,9 @@ export class FeaturesComponent {
   constructor(
     private angularFirestore: AngularFirestore,
     private fb: FormBuilder
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.features$ = this.angularFirestore
       .collection<Feature>('Feature')
       .snapshotChanges()
