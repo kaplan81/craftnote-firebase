@@ -28,7 +28,7 @@ export class AppComponent {
         this.loggedIn = true;
         this.user = user;
         this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['features']);
         });
       } else {
         this.ngZone.run(() => {

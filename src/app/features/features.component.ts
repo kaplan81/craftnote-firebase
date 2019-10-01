@@ -6,11 +6,11 @@ import { map, share } from 'rxjs/operators';
 import { Feature } from '../feature.model';
 
 @Component({
-  selector: 'crf-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: 'crf-features',
+  templateUrl: './features.component.html',
+  styleUrls: ['./features.component.scss']
 })
-export class DashboardComponent {
+export class FeaturesComponent {
   features$: Observable<Feature[]>;
   featureForm = this.fb.group({
     name: ['', Validators.required],

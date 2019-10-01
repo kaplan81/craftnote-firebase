@@ -23,7 +23,7 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { FeaturesComponent } from './features/features.component';
 import { LoginComponent } from './login/login.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { RegistrationComponent } from './registration/registration.component';
@@ -35,7 +35,7 @@ import { RegistrationComponent } from './registration/registration.component';
     LoginComponent,
     RegistrationComponent,
     AuthDialogComponent,
-    DashboardComponent
+    FeaturesComponent
   ],
   imports: [
     BrowserModule,
