@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'AIzaSyAsVKTcPZ0moW2W10HhDb2KW_w6ENtM0T4',
+    apiKey: '***REPLACE WITH THE API KEY***',
     authDomain: 'craftnote-web-challenge.firebaseapp.com',
     databaseURL: 'https://craftnote-web-challenge.firebaseio.com',
     projectId: 'craftnote-web-challenge',
