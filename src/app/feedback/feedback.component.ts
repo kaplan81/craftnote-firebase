@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -22,6 +22,11 @@ export class FeedbackComponent implements OnInit, OnDestroy {
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['name', 'description', 'channel'];
+  feedbackForm = this.fb.group({
+    name: ['', Validators.required],
+    description: ['', Validators.required],
+    channel: ['', Validators.required]
+  });
   destroyed$ = new Subject<boolean>();
 
   constructor(
@@ -61,5 +66,27 @@ export class FeedbackComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroyed$.next();
     this.destroyed$.complete();
+  }
+
+  onSubmit(): void {
+    const featureName: string[] = this.splitNames(this.feedbackForm.value.name);
+    const description: string = this.feedbackForm.value.description;
+    const channel: string = this.feedbackForm.value.channel;
+
+    this.angularFirestore
+      .collection<FeedbackRow>('Feedback')
+      .add({ featureName, description, channel })
+      .then(() => {
+        console.log('A  new feedback was added to the database.');
+        this.feedbackForm.reset();
+      })
+      .catch(error => alert(error.message));
+  }
+
+  private splitNames(names: string): string[] {
+    return names
+      .trim()
+      .split(',')
+      .map(str => str.trim());
   }
 }

@@ -31,3 +31,64 @@
   >
   </mat-paginator>
 </div>
+
+<br /><br />
+
+<form [formGroup]="feedbackForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Add a new feedback to the collection!</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Feature Name" formControlName="name" />
+            <mat-hint
+              >You can introduce several feature names by doing it comma
+              separated.</mat-hint
+            >
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <textarea
+              matInput
+              placeholder="Description"
+              formControlName="description"
+            ></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Channel</mat-label>
+            <select matNativeControl formControlName="channel">
+              <option value="email">email</option>
+              <option value="web">web</option>
+              <option value="Google Play">Google Play</option>
+              <option value="mobile_sdk">mobile_sdk</option>
+              <option value="Telefon">Telefon</option>
+              <option value="Facebook">Facebook</option>
+              <option value="Beamer">Beamer</option>
+            </select>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button
+        class="add-feedback"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!feedbackForm.valid"
+      >
+        Add
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>
